@@ -1,7 +1,7 @@
 {
   "name": "pusher-zapier",
   "version": "0.1.0",
-  "description": "Zapier Pusher integration",
+  "description": "Pusher module for Zapier",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -21,6 +21,7 @@
   "devDependencies": {
     "expect.js": "^0.3.1",
     "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
     "gulp-mocha": "^2.0.1"
   }
 }
