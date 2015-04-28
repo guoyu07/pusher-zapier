@@ -2,6 +2,11 @@
 
 A very basic Pusher module for [Zapier](https://zapier.com).
 
+* [Creating a Zap that uses Pusher](#creating-a-zap-that-uses-pusher)
+  * [Action: Trigger an event on a channel](#action-trigger-an-event-on-a-channel)
+* [Zapier & JSON](#zapier--json)
+* [Developer Notes](##developer-notes)
+
 ## Creating a Zap that uses Pusher
 
 To create a new Zap that uses Pusher is really simple.
