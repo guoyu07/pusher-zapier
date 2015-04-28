@@ -37,3 +37,30 @@ Zapier doesn't handle JSON being defined in the text area particularly well. So,
 1. Choose variables that have a small amount of content with simple charaters. For example, Zapier doesn't like new line characters (`\n`) in the payload or it won't tread it as JSON.
 2. Only choose variables that are required to ensure the size of the payload doesn't go above 10kb.
 3. Consider sending data as a `String` and parsing it upon receipt in your client to avoid the Zapier JSON trickiness.
+
+## Developer Notes
+
+[Gulp](http://gulpjs.com/) is used as the task runner.
+
+Dependencies for the build are presently brought in from [Bower](http://bower.io/).
+
+```
+npm install
+bower install
+```
+
+CryptoJS is brought in even though Zapier does offer some crypto functionality. It was determine that the Zapier crypto functionality didn't comply with the requirements of signing Pusher requests.
+
+### Build
+
+This process would ideally use something like browserify or webpack. However, Zapier has it's own unique JavaScript runtime so simple file concatenation to bring in dependencies is probably fine for the moment.
+
+```
+gulp build
+```
+
+### Test
+
+```
+gulp test
+```
