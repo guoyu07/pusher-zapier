@@ -1,0 +1,40 @@
+{
+  "auth_fields": {
+    "app_secret": "some-amazing-secret", 
+    "app_id": "an-id", 
+    "app_key": "an-application-kay",
+    "cluster": ""
+  }, 
+  "request": {
+    "files": {}, 
+    "url": "https://api.pusherapp.com/apps/117651/events", 
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8", 
+      "Accept": "application/json"
+    }, 
+    "params": {}, 
+    "data": "{\"channels\": \"email\", \"eventName\": \"new_email\", \"eventData\": \"body|Woohoo! Gmail \\u21e2 Zapier \\u21e2 Pusher is awesome real-time goodness!\\r\\n\\nsubject|Yo! Yo!\"}", 
+    "method": "POST"
+  }, 
+  "action_fields": {
+    "channels": "email", 
+    "eventName": "new_email", 
+    "eventData": "body|Woohoo! Gmail \u21e2 Zapier \u21e2 Pusher is awesome real-time goodness!\r\n\nsubject|Yo! Yo!"
+  }, 
+  "action_fields_full": {
+    "channels": "email", 
+    "eventName": "new_email", 
+    "eventData": "body|Woohoo! Gmail \u21e2 Zapier \u21e2 Pusher is awesome real-time goodness!\r\n\nsubject|Yo! Yo!"
+  }, 
+  "action_fields_raw": {
+    "channels": "email", 
+    "eventName": "new_email", 
+    "eventData": {
+      "body": "{{3795951__body_plain}}", 
+      "subject": "{{3795951__subject}}"
+    }
+  }, 
+  "url_raw": "https://{{cluster}}.pusherapp.com/apps/{{app_id}}/events", 
+  "zap": {}, 
+  "trigger_data": {}
+}

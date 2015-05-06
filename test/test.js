@@ -13,4 +13,20 @@ describe('Zap', function(){
     expect(Zap.trigger_pre_write).to.be.a('function');
   });
   
+  it('should default to using the "api" cluster', function() {
+    var sampleBundle = require(__dirname + '/samplebundle.json');
+    
+    var result = Zap.trigger_pre_write(sampleBundle);
+    expect(result.url).to.contain('api.pusherapp.com');
+  });
+  
+  it('should set the domain to pusher.com if a cluster is supplied', function() {
+    var sampleBundle = require(__dirname + '/samplebundle.json');
+    
+    sampleBundle.auth_fields.cluster = 'useast1';
+    
+    var result = Zap.trigger_pre_write(sampleBundle);
+    expect(result.url).to.contain('api-useast1.pusher.com');
+  });
+  
 });

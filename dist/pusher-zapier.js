@@ -89,6 +89,42 @@ function hmacWrapper( secret ) {
   };
 }
 
+var dictionize = function(data) {
+    var trim = function(str) {
+        return String((str === null) || (str === void 0) ? '' : str).replace(/^\s+|\s+$/g, '');
+    };
+
+    // port of python's dictionize data
+    if (data && _.isObject(data)) {
+        return data;
+    }
+
+    var d = {};
+    if (data && _.isString(data) && data.indexOf('|') !== -1) {
+        var lines_copy = trim(data).split(/\r?\n/);
+
+        // combine lines that have no '|'
+        var lines = [];
+        _.each(lines_copy, function(line) {
+            if (line) {
+                if (line.indexOf('|') !== -1) {
+                    lines.push(line);
+                } else if (lines) {
+                    lines[lines.length - 1] += '\n' + (line || '');
+                }
+            }
+        });
+
+        _.each(lines, function(line) {
+            var components = trim(line).split('|');
+            var k = components.shift();
+            var v = components.join('|');
+            d[trim(k)] = trim(v);
+        });
+    }
+    return d;
+};
+
 /*** Zapier Functionality ***/
 
 var RESERVED_QUERY_KEYS = {
@@ -192,10 +228,7 @@ var Zap = {
     var data = bundle.action_fields[ 'eventData' ];
     if(data) {
       try {
-        // This is massively hacky...
-        // but... makes it easier to track down if thing don't
-        // get spit out of Pusher as JSON
-        data = JSON.parse(data);
+        data = dictionize(data);
         data = JSON.stringify(data);
       }
       catch(e) {
@@ -228,12 +261,26 @@ var Zap = {
     };
 
     var queryString = pusher.createSignedQueryString( options );
-
+    
+    // cluster support
+    var cluster = 'api';
+    var domain = 'pusherapp.com';
+    if(bundle.auth_fields.cluster) {
+      // cluster has been provided
+      cluster = 'api-' + bundle.auth_fields.cluster;
+      domain = 'pusher.com';
+    }
+    
+    var useUrl = bundle.url_raw;
+    useUrl = useUrl.replace('{{cluster}}', cluster);
+    useUrl = useUrl.replace('pusherapp.com', domain);
+    useUrl = useUrl.replace('{{app_id}}', bundle.auth_fields.app_id);
+    useUrl += '?' + queryString;
+    
     bundle.request.headers[ 'Content-Type' ] = 'application/json';
-    bundle.request.url += '?' + queryString;
 
     var request = {
-      url: bundle.request.url,
+      url: useUrl,
       method: bundle.request.method,
       auth: bundle.request.auth,
       headers: bundle.request.headers,

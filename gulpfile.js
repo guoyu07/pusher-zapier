@@ -8,6 +8,7 @@ gulp.task('build', function() {
       './bower_components/cryptojslib/rollups/hmac-md5.js',
       './bower_components/cryptojslib/rollups/sha256.js',
       './src/crypto-wrapper.js',
+      './src/dictionize.js',
       './src/index.js'
     ])
     .pipe(concat('pusher-zapier.js'))
