@@ -1,6 +1,6 @@
 {
   "name": "pusher-zapier",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Pusher module for Zapier",
   "main": "index.js",
   "directories": {
@@ -20,8 +20,9 @@
   "license": "MIT",
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "gulp": "^3.8.11",
+    "gulp": "^3.9.0",
     "gulp-concat": "^2.5.2",
+    "gulp-header": "^1.7.1",
     "gulp-mocha": "^2.0.1"
   }
 }

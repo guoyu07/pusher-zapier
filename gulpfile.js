@@ -1,17 +1,19 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var mocha = require('gulp-mocha');
+var header = require('gulp-header');
+
+var pkgInfo = require(__dirname + '/package.json');
 
 gulp.task('build', function() {
   gulp.src(
     [
-      './bower_components/cryptojslib/rollups/hmac-md5.js',
-      './bower_components/cryptojslib/rollups/sha256.js',
-      './src/crypto-wrapper.js',
+      './src/header.js',
       './src/dictionize.js',
       './src/index.js'
     ])
     .pipe(concat('pusher-zapier.js'))
+    .pipe(header('// Pusher Zapier Library v' + pkgInfo.version + ' Created at ' + new Date() + '\n'))
     .pipe(gulp.dest('./dist/'));
 });
 

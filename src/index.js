@@ -19,7 +19,7 @@ function toOrderedArray(map) {
 }
 
 function sign(secret, toSign) {
-  var signed = crypto.createHmac('sha256', secret).update(toSign).digest('hex');
+  var signed = z.hmac('sha256', secret, toSign);
   return signed;
 }
 
@@ -38,13 +38,13 @@ Pusher.prototype.createSignedQueryString = function(options) {
   };
 
   if (options.body) {
-     params.body_md5 = crypto.createHash('md5').update(options.body, 'utf8').digest('hex');
+    params.body_md5 = z.hash('md5', options.body, 'hex', 'utf8');
   }
 
   if (options.params) {
     for (var key in options.params) {
       if (RESERVED_QUERY_KEYS[key] !== undefined) {
-        throw Error(key + ' is a required parameter and cannot be overidden');
+        throw new Error(key + ' is a required parameter and cannot be overidden');
       }
       params[key] = options.params[key];
     }

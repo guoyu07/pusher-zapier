@@ -1,8 +1,26 @@
 var expect = require('expect.js');
 
+// Zapier provides a number of libraries via the `z` global.
+// Stub out here for testing purposes.
+var z = {
+  hmac: function() {},
+  hash: function() {}
+};
+
+// Zapier also provides makes underscore `_` available as a global.
+// Stub out here for testing purposes.
+var _ = {
+  each: function() {}
+};
+
 var Zap = require(__dirname + '/../dist/pusher-zapier.js');
 
 describe('Zap', function(){
+  
+  beforeEach(function() {
+    global.z = z;
+    global._ = _;
+  });
   
   it('should be defined', function() {
     expect(Zap).to.be.ok();
